@@ -1,5 +1,16 @@
-<div>Encrypt Start.</div>
-<br><br>
+<h3>Encryptor</h3>
+<div class="encryptProgress ng-hide" id="encryptProgress" ng-hide="!encrypt.EncryptData.encrypting"></div>
+<div class="ng-hide" ng-hide="encrypt.EncryptData.encrypting">
+    <div class="form-group">
+        <label for="plainText">Text to encrypt</label>
+        <textarea name="plainText" id="plainText" cols="30" rows="10" class="form-control" ng-model="encrypt.plainText"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control" ng-model="encrypt.password">
+        <label for="confirmPassword">Confirm password</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" ng-model="encrypt.confirmPassword">
+    </div>
+</div>
 <button class="btn btn-primary" ng-click="encrypt.encrypt()">Encrypt</button>
-<br><br>
-<div id="progressEncrypt"></div>
+<button class="btn btn-danger">Cancel</button>

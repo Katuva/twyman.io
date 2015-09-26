@@ -13,8 +13,6 @@
             <div class="row">
                 <div class="col-md-7">
                     <div ui-view></div>
-                    <br><br>
-                    <a ui-sref="upload" class="btn btn-primary">Test</a>
                 </div>
             </div>
         </div>

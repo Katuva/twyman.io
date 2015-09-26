@@ -32,12 +32,13 @@ angular.module('app', ['ui.router'])
         this.EncryptData = EncryptData;
 
         this.encrypt = () => {
-            EncryptorService.encrypt('This is a test', 'test').then((data) => {
+            EncryptData.encrypting = true;
+            EncryptorService.encrypt(this.plainText, this.password).then((data) => {
                 EncryptData.cipherText = data;
             }, () => {
                 console.log('Failed.');
             }, (progress) => {
-                angular.element(document.querySelector('#progressEncrypt')).html(progress);
+                angular.element(document.querySelector('#encryptProgress')).html(progress);
             });
         };
     })
@@ -59,9 +60,7 @@ angular.module('app', ['ui.router'])
             }, () => {
                 console.log('Failed.');
             }, (progress) => {
-                angular.element(document.querySelector('#progressDecrypt')).html(progress);
+                angular.element(document.querySelector('#decryptProgress')).html(progress);
             });
         };
     });
-
-console.log('Loaded encryptor.js');

@@ -94,10 +94,7 @@ export default class EncryptorService {
         return defer.promise;
     }
 
-    static b64toBlob(b64Data, contentType, sliceSize) {
-        contentType = contentType || '';
-        sliceSize = sliceSize || 512;
-
+    static b64toBlob(b64Data, contentType = '', sliceSize = 512) {
         var byteCharacters = atob(b64Data);
         var byteArrays = [];
 
