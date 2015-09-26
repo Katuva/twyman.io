@@ -12,19 +12,19 @@ angular.module('app', ['ui.router'])
 
         $stateProvider
             .state('start', {
-                url: "/",
-                templateUrl: "../partials/encryptor/encrypt-start.html",
-                controller: "EncryptController as encrypt"
+                url: '/',
+                templateUrl: '../partials/encryptor/encrypt-start.html',
+                controller: 'EncryptController as encrypt'
             })
             .state('upload', {
-                url: "/upload",
-                templateUrl: "../partials/encryptor/encrypt-upload.html",
-                controller: "UploadController as upload"
+                url: '/upload',
+                templateUrl: '../partials/encryptor/encrypt-upload.html',
+                controller: 'UploadController as upload'
             })
             .state('finish', {
-                url: "/finished",
-                templateUrl: "../partials/encryptor/encrypt-finish.html",
-                controller: "EncryptFinishController as finish"
+                url: '/finished',
+                templateUrl: '../partials/encryptor/encrypt-finish.html',
+                controller: 'EncryptFinishController as finish'
             });
     })
     .service('EncryptorService', EncryptService)
