@@ -16,18 +16,19 @@ class MainController extends Controller
      */
     public function store(Request $request)
     {
-        $db = new Encryptor();
-
         $expires = new \DateTime();
         $expires->add(\DateInterval::createFromDateString($request->expires));
 
-        $db->data = $request->data;
-        $db->expires = $expires;
-        $db->max_views = $request->max_views;
+        $result = Encryptor::create([
+            'data' => $request->cipherText,
+            'expires' => $expires,
+            'max_views' => $request->maxViews
+        ]);
 
-        if ($db->save()) {
+        if ($result) {
             return response()->json([
-                'url' => route('EncryptorDecrypt', ['id' => $db->url_key])
+                'url' => route('Encryptor'),
+                'url_key' => $result->url_key
             ], 201);
         }
 

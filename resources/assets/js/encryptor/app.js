@@ -50,8 +50,33 @@ angular.module('app', ['ui.router'])
             });
         };
     })
-    .controller('UploadController', function(EncryptData) {
+    .controller('UploadController', function(EncryptData, $http) {
         this.EncryptData = EncryptData;
+        this.timeOptions = [
+            '30 minutes',
+            '1 hour',
+            '2 hours',
+            '3 hours',
+            '6 hours',
+            '12 hours',
+            '1 day',
+            '2 days',
+            '3 days',
+            '4 days',
+            '5 days',
+            '6 days',
+            '7 days'
+        ];
+
+        this.upload = () => {
+            $http.post('/api/v1/encryptor', EncryptData)
+                .then((response) => {
+                    console.log(response.data);
+                }, (response) => {
+                    console.log(response);
+                }
+            );
+        }
     })
     .controller('DecryptController', function(EncryptData, EncryptorService, $stateParams, $state) {
         this.EncryptData = EncryptData;

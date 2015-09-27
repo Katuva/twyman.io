@@ -12,10 +12,13 @@
 */
 
 Route::get('/', 'Web\MainController@index');
-Route::get('/encryptor', 'Encryptor\MainController@show');
+Route::get('/encryptor', [
+    'as' => 'Encryptor',
+    'uses' =>'Encryptor\MainController@show'
+]);
 
 // RESTful routes v1
 Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1'], function () {
     Route::resource('encryptor', 'Encryptor\MainController',
-        ['only' => ['show', 'create']]);
+        ['only' => ['show', 'store']]);
 });

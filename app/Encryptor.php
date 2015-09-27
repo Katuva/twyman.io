@@ -8,6 +8,7 @@ class Encryptor extends Model
 {
     protected $table = 'encryptor';
 
+    protected $fillable = ['url_key', 'data', 'expires', 'max_views'];
     protected $hidden = ['id'];
 
     public static function create(array $attributes = [])
