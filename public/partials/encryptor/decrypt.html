@@ -1,1 +1,15 @@
-{{ decrypt.EncryptData.url_key }}
+<h3>Decryptor</h3>
+<div class="decryptProgress ng-hide" id="decryptProgress" ng-hide="!decrypt.EncryptData.decrypting"></div>
+<form name="form" novalidate ng-hide="decrypt.EncryptData.decrypting" ng-submit="decrypt.decrypt()">
+    <div class="form-group">
+        <label for="cipherText">Data to decrypt</label>
+        <textarea name="cipherText" id="cipherText" cols="30" rows="10" class="form-control" ng-model="decrypt.EncryptData.cipherText" disabled></textarea>
+        <p class="help-block">This is the data that will be decrypted locally.</p>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="Password..." ng-model="decrypt.password" required>
+        <p class="help-block" ng-show="form.password.$error.required && form.password.$touched">You need to enter a password</p>
+    </div>
+    <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Decrypt</button>
+</form>

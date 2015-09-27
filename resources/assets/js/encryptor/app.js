@@ -48,6 +48,7 @@ angular.module('app', ['ui.router'])
                 $state.go('encrypt-upload');
                 EncryptData.encrypting = false;
             }, () => {
+                // TODO: Add proper error handling
                 console.log('Failed.');
                 EncryptData.encrypting = false;
             }, (progress) => {
@@ -80,6 +81,7 @@ angular.module('app', ['ui.router'])
                     this.EncryptData.url = `${response.data.url}${$state.href('decrypt', {url_key: this.EncryptData.url_key})}`;
                     $state.go('encrypt-finish');
                 }, (response) => {
+                    // TODO: Add proper error handing
                     console.log(response);
                 }
             );
@@ -92,15 +94,28 @@ angular.module('app', ['ui.router'])
             $state.go('decrypt', {url_key: this.EncryptData.url_key});
         }
     })
-    .controller('DecryptController', function(EncryptData, EncryptorService, $stateParams, $state) {
+    .controller('DecryptController', function(EncryptData, EncryptorService, $http, $stateParams, $state) {
         this.EncryptData = EncryptData;
 
-        this.decrypt = () => {
-            EncryptData.decrypting = true;
+        $http.get(`/api/v1/encryptor/${$stateParams.url_key}`)
+            .then((response) => {
+                this.EncryptData = {
+                    cipherText: response.data.data,
+                    expires: response.data.expires,
+                    maxViews: response.data.max_views,
+                    views: response.data.views
+                };
+            }
+        );
 
-            EncryptorService.decrypt(EncryptData.cipherText, this.password).then((data) => {
-                EncryptData.plainText = data.data;
+        this.decrypt = () => {
+            this.EncryptData.decrypting = true;
+
+            EncryptorService.decrypt(this.EncryptData.cipherText, this.password).then((data) => {
+                this.EncryptData.plainText = data.data;
+                console.log(this.EncryptData.plainText);
             }, () => {
+                // TODO: Add proper error handling
                 console.log('Failed.');
             }, (progress) => {
                 angular.element(document.querySelector('#decryptProgress')).html(progress);
