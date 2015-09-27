@@ -3,7 +3,8 @@ require('angular-ui-router');
 
 import EncryptService from './EncryptorService';
 import autoFocus from '../autoFocusDirective';
-import confirmAgainst from '../confirmAgainst';
+import confirmAgainst from '../confirmAgainstDirective';
+import fromNow from '../fromNowFilter';
 
 angular.module('app', ['ui.router'])
     .factory('EncryptData', () => {
@@ -34,6 +35,7 @@ angular.module('app', ['ui.router'])
                 controller: 'DecryptController as decrypt'
             });
     })
+    .filter('fromNow', fromNow)
     .directive('autoFocus', autoFocus)
     .directive('ngConfirmField', confirmAgainst)
     .service('EncryptorService', EncryptService)

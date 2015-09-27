@@ -4,6 +4,7 @@
 
 @section('js')
     {!! Html::script('js/triplesec.js') !!}
+    {!! Html::script('js/moment.js') !!}
     {!! Html::script('js/encryptor.js') !!}
 @endsection
 

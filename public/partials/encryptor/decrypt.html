@@ -11,5 +11,12 @@
         <input type="password" name="password" id="password" class="form-control" placeholder="Password..." ng-model="decrypt.password" required>
         <p class="help-block" ng-show="form.password.$error.required && form.password.$touched">You need to enter a password</p>
     </div>
+    <div class="alert alert-danger">
+        <div style="color: red;"><strong>Expires {{ decrypt.EncryptData.expires | fromNow }}</strong></div>
+        <div class="ng-hide" ng-show="decrypt.EncryptData.maxViews > 0">
+            <br />
+            <div style="color: red;"><strong>Viewed {{ decrypt.EncryptData.views }} of {{ decrypt.EncryptData.maxViews }} times.</strong></div>
+        </div>
+    </div>
     <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Decrypt</button>
 </form>
