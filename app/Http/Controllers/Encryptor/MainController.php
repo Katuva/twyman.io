@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 
 class MainController extends Controller
 {
-    public function create()
+    public function show()
     {
-        return view('encryptor.encrypt');
+        return view('encryptor.index');
     }
 }

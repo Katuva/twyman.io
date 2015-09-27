@@ -8,7 +8,7 @@
 @endsection
 
 @section('body')
-    <div ng-controller="EncryptController as encrypt">
+    <div>
         <div class="container">
             <div class="row">
                 <div class="col-md-7">

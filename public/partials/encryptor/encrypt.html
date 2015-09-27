@@ -7,10 +7,9 @@
     </div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" class="form-control" ng-model="encrypt.password">
+        <input type="password" name="password" id="password" class="form-control" placeholder="Password..." ng-model="encrypt.password">
         <label for="confirmPassword">Confirm password</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" ng-model="encrypt.confirmPassword">
+        <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm password..." ng-model="encrypt.confirmPassword">
     </div>
 </div>
 <button class="btn btn-primary" ng-click="encrypt.encrypt()">Encrypt</button>
-<button class="btn btn-danger">Cancel</button>
