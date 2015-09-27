@@ -15,5 +15,5 @@
         <p class="help-block" ng-show="form.confirmPassword.$error.required && form.confirmPassword.$touched">You need to confirm the password</p>
         <p class="help-block" ng-show="form.confirmPassword.$error.noMatch && form.confirmPassword.$touched">The passwords don't match</p>
     </div>
+    <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Encrypt</button>
 </form>
-<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Encrypt</button>
