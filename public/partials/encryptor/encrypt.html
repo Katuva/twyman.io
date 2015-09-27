@@ -10,6 +10,8 @@
         <label for="password">Password</label>
         <input type="password" name="password" id="password" class="form-control" placeholder="Password..." ng-model="encrypt.password" required>
         <p class="help-block" ng-show="form.password.$error.required && form.password.$touched">You need to enter a password</p>
+    </div>
+    <div class="form-group">
         <label for="confirmPassword">Confirm password</label>
         <input type="password" ng-confirm-field name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm password..." ng-model="encrypt.confirmPassword" confirm-against="encrypt.password" required>
         <p class="help-block" ng-show="form.confirmPassword.$error.required && form.confirmPassword.$touched">You need to confirm the password</p>

@@ -1,2 +1,5 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
+// Keep this at the bottom to override base styling
+@import "overrides";
