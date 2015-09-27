@@ -1,15 +1,18 @@
 <h3>Encryptor</h3>
 <div class="encryptProgress ng-hide" id="encryptProgress" ng-hide="!encrypt.EncryptData.encrypting"></div>
-<div class="ng-hide" ng-hide="encrypt.EncryptData.encrypting">
+<form name="form" class="ng-hide" novalidate ng-hide="encrypt.EncryptData.encrypting" ng-submit="encrypt.encrypt()">
     <div class="form-group">
         <label for="plainText">Text to encrypt</label>
-        <textarea name="plainText" id="plainText" cols="30" rows="10" class="form-control" ng-model="encrypt.plainText"></textarea>
+        <textarea name="plainText" id="plainText" cols="30" rows="10" class="form-control" ng-model="encrypt.plainText" auto-focus required></textarea>
+        <p class="help-block" ng-show="form.plainText.$error.required && form.plainText.$touched">You need to enter text to encrypt</p>
     </div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" class="form-control" placeholder="Password..." ng-model="encrypt.password">
+        <input type="password" name="password" id="password" class="form-control" placeholder="Password..." ng-model="encrypt.password" required>
+        <p class="help-block" ng-show="form.password.$error.required && form.password.$touched">You need to enter a password</p>
         <label for="confirmPassword">Confirm password</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm password..." ng-model="encrypt.confirmPassword">
+        <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm password..." ng-model="encrypt.confirmPassword" required>
+        <p class="help-block" ng-show="form.confirmPassword.$error.required && form.confirmPassword.$touched">You need to confirm the password</p>
     </div>
-</div>
-<button class="btn btn-primary" ng-click="encrypt.encrypt()">Encrypt</button>
+</form>
+<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Encrypt</button>

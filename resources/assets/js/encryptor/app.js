@@ -2,6 +2,7 @@ require('angular');
 require('angular-ui-router');
 
 import EncryptService from './EncryptorService';
+import autoFocus from '../autoFocusDirective'
 
 angular.module('app', ['ui.router'])
     .factory('EncryptData', () => {
@@ -27,6 +28,7 @@ angular.module('app', ['ui.router'])
                 controller: 'DecryptController as decrypt'
             });
     })
+    .directive('autoFocus', autoFocus)
     .service('EncryptorService', EncryptService)
     .controller('EncryptController', function(EncryptData, EncryptorService, $state) {
         this.EncryptData = EncryptData;
