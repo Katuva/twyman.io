@@ -23,6 +23,11 @@ angular.module('app', ['ui.router'])
                 templateUrl: '../partials/encryptor/encrypt-upload.html',
                 controller: 'UploadController as upload'
             })
+            .state('encrypt-finish', {
+                url: '/encrypt-finish',
+                templateUrl: '../partials/encryptor/encrypt-finish.html',
+                controller: 'EncryptFinishController as finish'
+            })
             .state('decrypt', {
                 url: '/decrypt/{url_key}',
                 templateUrl: '../partials/encryptor/decrypt.html',
@@ -50,7 +55,7 @@ angular.module('app', ['ui.router'])
             });
         };
     })
-    .controller('UploadController', function(EncryptData, $http) {
+    .controller('UploadController', function(EncryptData, $http, $state) {
         this.EncryptData = EncryptData;
         this.timeOptions = [
             '30 minutes',
@@ -71,18 +76,24 @@ angular.module('app', ['ui.router'])
         this.upload = () => {
             $http.post('/api/v1/encryptor', EncryptData)
                 .then((response) => {
-                    console.log(response.data);
+                    this.EncryptData.url_key = response.data.url_key;
+                    this.EncryptData.url = `${response.data.url}${$state.href('decrypt', {url_key: this.EncryptData.url_key})}`;
+                    $state.go('encrypt-finish');
                 }, (response) => {
                     console.log(response);
                 }
             );
         }
     })
+    .controller('EncryptFinishController', function(EncryptData, $state) {
+        this.EncryptData = EncryptData;
+
+        this.view = () => {
+            $state.go('decrypt', {url_key: this.EncryptData.url_key});
+        }
+    })
     .controller('DecryptController', function(EncryptData, EncryptorService, $stateParams, $state) {
         this.EncryptData = EncryptData;
-        this.EncryptData.url_key = $stateParams.url_key;
-
-        console.log($state.href('decrypt', {url_key: this.EncryptData.url_key}));
 
         this.decrypt = () => {
             EncryptData.decrypting = true;
