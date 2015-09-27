@@ -33,6 +33,11 @@ angular.module('app', ['ui.router'])
                 url: '/decrypt/{url_key}',
                 templateUrl: '../partials/encryptor/decrypt.html',
                 controller: 'DecryptController as decrypt'
+            })
+            .state('decrypt-finish', {
+                url: '/decrypt-finish',
+                templateUrl: '../partials/encryptor/decrypt-finish.html',
+                controller: 'DecryptFinishController as finish'
             });
     })
     .filter('fromNow', fromNow)
@@ -79,8 +84,8 @@ angular.module('app', ['ui.router'])
         this.upload = () => {
             $http.post('/api/v1/encryptor', EncryptData)
                 .then((response) => {
-                    this.EncryptData.url_key = response.data.url_key;
-                    this.EncryptData.url = `${response.data.url}${$state.href('decrypt', {url_key: this.EncryptData.url_key})}`;
+                    EncryptData.url_key = response.data.url_key;
+                    EncryptData.url = `${response.data.url}${$state.href('decrypt', {url_key: this.EncryptData.url_key})}`;
                     $state.go('encrypt-finish');
                 }, (response) => {
                     // TODO: Add proper error handing
@@ -93,7 +98,7 @@ angular.module('app', ['ui.router'])
         this.EncryptData = EncryptData;
 
         this.view = () => {
-            $state.go('decrypt', {url_key: this.EncryptData.url_key});
+            $state.go('decrypt', {url_key: EncryptData.url_key});
         }
     })
     .controller('DecryptController', function(EncryptData, EncryptorService, $http, $stateParams, $state) {
@@ -101,26 +106,29 @@ angular.module('app', ['ui.router'])
 
         $http.get(`/api/v1/encryptor/${$stateParams.url_key}`)
             .then((response) => {
-                this.EncryptData = {
-                    cipherText: response.data.data,
-                    expires: response.data.expires,
-                    maxViews: response.data.max_views,
-                    views: response.data.views
-                };
+                EncryptData.cipherText = response.data.data;
+                EncryptData.expires = response.data.expires;
+                EncryptData.maxViews = response.data.max_views;
+                EncryptData.views = response.data.views;
             }
         );
 
         this.decrypt = () => {
-            this.EncryptData.decrypting = true;
+            EncryptData.decrypting = true;
 
             EncryptorService.decrypt(this.EncryptData.cipherText, this.password).then((data) => {
-                this.EncryptData.plainText = data.data;
-                console.log(this.EncryptData.plainText);
+                EncryptData.plainText = data.data;
+                $state.go('decrypt-finish');
+                EncryptData.decrypting = false;
             }, () => {
                 // TODO: Add proper error handling
                 console.log('Failed.');
+                EncryptData.decrypting = false;
             }, (progress) => {
                 angular.element(document.querySelector('#decryptProgress')).html(progress);
             });
         };
+    })
+    .controller('DecryptFinishController', function(EncryptData) {
+        this.EncryptData = EncryptData;
     });

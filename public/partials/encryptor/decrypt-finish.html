@@ -1,0 +1,12 @@
+<h3>Decryptor</h3>
+<div class="form-group">
+    <label for="plainText">Decrypted data</label>
+    <textarea name="plainText" id="plainText" cols="30" rows="10" class="form-control" ng-model="finish.EncryptData.plainText" disabled></textarea>
+</div>
+<div class="alert alert-danger">
+    <div style="color: red;"><strong>Expires {{ finish.EncryptData.expires | fromNow }}</strong></div>
+    <div class="ng-hide" ng-show="finish.EncryptData.maxViews > 0">
+        <br />
+        <div style="color: red;"><strong>Viewed {{ finish.EncryptData.views }} of {{ finish.EncryptData.maxViews }} times.</strong></div>
+    </div>
+</div>
