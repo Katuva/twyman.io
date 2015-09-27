@@ -2,7 +2,8 @@ require('angular');
 require('angular-ui-router');
 
 import EncryptService from './EncryptorService';
-import autoFocus from '../autoFocusDirective'
+import autoFocus from '../autoFocusDirective';
+import confirmAgainst from '../confirmAgainst';
 
 angular.module('app', ['ui.router'])
     .factory('EncryptData', () => {
@@ -29,6 +30,7 @@ angular.module('app', ['ui.router'])
             });
     })
     .directive('autoFocus', autoFocus)
+    .directive('ngConfirmField', confirmAgainst)
     .service('EncryptorService', EncryptService)
     .controller('EncryptController', function(EncryptData, EncryptorService, $state) {
         this.EncryptData = EncryptData;

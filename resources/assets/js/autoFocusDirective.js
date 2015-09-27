@@ -1,9 +1,9 @@
 export default ($timeout) => {
     return {
         restrict: 'AC',
-        link: function(_scope, _element) {
+        link: function(scope, element) {
             $timeout(() => {
-                _element[0].focus();
+                element[0].focus();
             });
         }
     };

@@ -11,8 +11,9 @@
         <input type="password" name="password" id="password" class="form-control" placeholder="Password..." ng-model="encrypt.password" required>
         <p class="help-block" ng-show="form.password.$error.required && form.password.$touched">You need to enter a password</p>
         <label for="confirmPassword">Confirm password</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm password..." ng-model="encrypt.confirmPassword" required>
+        <input type="password" ng-confirm-field name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm password..." ng-model="encrypt.confirmPassword" confirm-against="encrypt.password" required>
         <p class="help-block" ng-show="form.confirmPassword.$error.required && form.confirmPassword.$touched">You need to confirm the password</p>
+        <p class="help-block" ng-show="form.confirmPassword.$error.noMatch && form.confirmPassword.$touched">The passwords don't match</p>
     </div>
 </form>
 <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Encrypt</button>
