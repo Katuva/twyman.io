@@ -38,6 +38,10 @@ angular.module('app', ['ui.router'])
                 url: '/decrypt-finish',
                 templateUrl: '../partials/encryptor/decrypt-finish.html',
                 controller: 'DecryptFinishController as finish'
+            })
+            .state('404', {
+                url: '/404',
+                templateUrl: '../partials/encryptor/404.html'
             });
     })
     .filter('fromNow', fromNow)
@@ -110,6 +114,8 @@ angular.module('app', ['ui.router'])
                 EncryptData.expires = response.data.expires;
                 EncryptData.maxViews = response.data.max_views;
                 EncryptData.views = response.data.views;
+            }, (response) => {
+                if (response.status === 404) $state.go('404');
             }
         );
 
