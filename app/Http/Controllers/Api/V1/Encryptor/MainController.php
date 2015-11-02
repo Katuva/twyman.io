@@ -12,7 +12,7 @@ class MainController extends Controller
      * Save Encryptor data to the database.
      *
      * @param Request $request
-     * @return string
+     * @return mixed
      */
     public function store(Request $request)
     {
